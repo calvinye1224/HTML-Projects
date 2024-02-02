@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Stopwatch</title>
+    <link rel="stylesheet" href="Final%20Project.css">
+</head>
+<body>
+<div class="styling">
+    <h1>Stopwatch</h1>
+    <div id="time">
+        <span class="digit" id="hr">00</span>
+        <span class="txt">Hr</span>
+
+        <span class="digit" id="min">00</span>
+        <span class="txt">Min</span>
+
+        <span class="digit" id="sec">00</span>
+        <span class="txt">Sec</span>
+    </div>
+
+    <div id="UI">
+        <input id="stop" class="custom-btn" type="button" value="Stop"  onclick="stopTimer();" />
+        <input id="start" class="custom-btn" type="button" value="Start" onclick="startTimer();" />
+        <input id="reset" class="custom-btn" type="button" value="Reset" onclick="resetTimer();" />
+    </div>
+</div>
+
+
+<script>
+    let hours = 0;
+    let minutes = 0;
+    let seconds = 0;
+    let timer; // Variable to hold the interval ID
+
+    function startTimer() {
+        timer = setInterval(updateTimer, 1000); // Update timer every second (1000 milliseconds)
+    }
+
+    function updateTimer() {
+        seconds++;
+        if (seconds === 60) {
+            seconds = 0;
+            minutes++;
+            if (minutes === 60) {
+                minutes = 0;
+                hours++;
+            }
+        }
+        displayTime();
+    }
+
+    function displayTime() {
+        document.getElementById('sec').innerText = formatTime(seconds);
+        document.getElementById('min').innerText = formatTime(minutes);
+        document.getElementById('hr').innerText = formatTime(hours);
+    }
+
+    function formatTime(time) {
+        // Check if the time is less than 10
+        if (time < 10) {
+            return "0" + time; // Adding a leading zero to make it a two-digit number
+        } else {
+            // If the time is already two digits or more, return the time as it is
+            return time;
+        }
+    }
+
+    function stopTimer() {
+        clearInterval(timer); // Stop the timer
+    }
+
+    function resetTimer() {
+        clearInterval(timer);
+        hours = 0;
+        minutes = 0;
+        seconds = 0;
+        displayTime();
+    }
+</script>
+</body>
+</html>
+
